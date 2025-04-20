@@ -1,28 +1,34 @@
-# 2610 Django + Vite Starting Point
-This project serves as a starting point you to use as a starting point for Django applications that use Vite as the asset server for development. You are welcome to us this project for all of your assignments beginning with Module 5.
+# Welcome to my Customizable Calculator App!
+The purpose of this project is to give professors/instructors complete freedom in making a calculator for each of their courses. Instructors will be able to add their courses and customize what functions are available for each course calculator. Then, they can create a unique link that can be embedded into exams or quizzes for student use. The link will direct students to a login page where they will login with their school ID/number and password. If they haven't already, it will ask them to create an account. The students will then be directed to the calculator page with whatever functions were made available by their instructor.
 
-## Strategy
-This application is a hybrid MPA and SPA. It reuses all of the login stuff that we did at the end of module 3 - there is a separate page for signup/signin. Once a user is logged in they are redirected to the / view which then renders the SPA application created using React and Vite.
+# Initial Login Page
+When you first open the app on localhost, it assumes it is an Instructor login. In the cases where a Student somehow ended up on this part of the app, they won't be able to login with their information. They are only able to access the Student login using the link given by their Instructor. This ensures a Student can't gain Instructor privileges as well as not being able to access other calculators.
 
-## Creating a new application
-1. Clone the repo `git clone git@github.com:dittonjs/2610DjangoViteStarter.git <your-new-project-name>`. Replace `<your-new-project-name>` with the name you want give to your project.
-   - If you are using GitHub for version control, a better option would be to fork the repository instead of clone it.
-3. Open the pyproject.toml file and change the `name` property. You should use `-` to separate words in your name for this property.
-4. This project was set up using Python 3.11. You might have an older version installed. If you run into an error later that says that your activated Python version isn't compatible, the in the pyproject.toml file, just change the version there to match the version that you have installed. If you do this, you need to make sure that the lock file gets regenerated. You can do this by running `poetry lock --no-update` or by simply deleting the poetry.lock file (it will get regenerated when you run poetry install)/
+# Instructor Sign-up Page
+This page will ask for the Instructor's first and last name, email, and password to create an account. Upon creating the account, the Instructor is redirected to the 'Instructor Verification Page'.
 
-## Initial Setup
-1. Change the name property in the `pyproject.toml` file to be something unique to your project.
-1. In the root directory, install the python dependencies `poetry install --no-root`
-2. In the `client` directory, install the javascript dependencies `npm install`
-3. In the `_server` directory, create a new file called `.env`
-4. Copy the contents of `_server/.env.example` into the newly created `.env` file.
-5. Activate the poetry env `poetry shell`, or, if you do not have the poetry shell plugin use `poetry run <the command you want to run>` to run somesomething
-6. In the `_server` directory, run the migrations `python manage.py migrate`
+# Instructor Verification Page
+The whole purpose of this page is to simulate the scenario where someone other than an Instructor tries to create an account. The Instructor would wait to receive a code from the company that owns the application, who checked with the University or School to verify the Instructor's identity. Once the Instructor puts in the code, they will be directed to their 'Courses Page'. If they left the page before verifying, the sign-in page will redirect them back to this page until they verify themselves.
 
-## Running the appliction
-1. In the `client` directory run `npm run dev`
-2. In the `_server` directory (with your poetry env activated) run `python manage.py runserver`
-3. Visit your application at `http://localhost:8000`
+   ## TODO
+      - Style these pages
 
-## Using this project for future classes/personal projects
-Many students in the past have chosen to use this starter app template for projects in other classes like CS3450 and for personal projects. I strongly encourage you to do so! Please check with your other instructors before you use this project as a starting point for their classes. You may also want to add your name to the author field in the `pyproject.toml` file.
+# Courses Page
+This is the page an Instructor is directed to after successful login. It will list all of their courses, which each act as a link to their own 'Course Page'. If an Instructor needs to Add a Course, there is a button that will redirect them to the 'Course Creation' page.
+
+# Course Creation Page
+This page contains a form that will ask for the name of the Course (i.e. Linear Algebra, Physics 2) and the Course Number (i.e. MATH2270, PHYS2210). As of now, this is all that is required for the Course upon creation. Once the Course is created, it will redirect back to the 'Courses Page' where it is displayed as a card.
+
+# Course Page
+This page acts as the 'Edit Calculator Page' for that specific Course. When an Instructor clicks a Course on the 'Courses Page', they are directed to this page. It will list all the possible functions for the calculator as toggleable buttons, which the Instructor can turn on or off. When the Instructor is done customizing the calculator, they can click the 'Generate Link' button which will create a link for Student use. There will also be a 'Delete Course' button, which will create a pop-up asking if the Instructor really wants to delete the Course, to which they can press Yes or No. If yes, they are redirected to the 'Courses Page'.
+
+   ## TODO
+      - Update 'main.jsx' to handle HashRouter
+         * Add 'App.jsx' as the main page and add components from the 'pages' folder as children of 'App.jsx'
+      - Change 'App.jsx' to act as the default page for both Instructor and Student, so for now that would just be the 'Courses Page'
+      - Create a Course component that will act as the Course card when displayed on the 'Courses Page'
+      - Create a Courses page component that will grab all the Courses from the database and display each Course card for that Instructor
+      - Create a Course Creation component that is just the page for adding a Course
+      - Create a Course page component that acts as the page for a specific Course where the Instructor can edit the calculator
+         * Use Professor Ditton's Todo app as a reference on how to do some of this
+      - Style these pages

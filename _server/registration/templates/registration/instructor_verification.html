@@ -1,0 +1,18 @@
+{% extends "registration/base.html"%}
+
+{% block title %}Instructor Verification{% endblock %}
+
+{% block content %}
+<div>Check your email for a verification code.</div>
+<div>You MUST verify your account before gaining Instructor Access</div>
+<form action="{% url 'instructor_verification' user_id %}" method="post">
+  {% csrf_token %}
+  <div>
+    <label>
+      Verification Code
+      <input type="text" name="verification_code">
+    </label>
+  </div>
+  <button>Verify</button>
+</form>
+{% endblock %}
