@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Outlet } from 'react-router';
 
 function App() {
 
@@ -9,7 +9,7 @@ function App() {
 
     if (res.ok) {
       // navigate away from the single page app!
-      window.location = "/registration/sign_in/";
+      window.location = "/registration/instructor_sign_in/";
     } else {
       // handle logout failed!
     }
@@ -17,7 +17,13 @@ function App() {
 
   return (
     <>
-      <button onClick={logout}>Logout</button>
+      <nav className="navbar">
+        <h1>Customizable Calculator</h1>
+        <button onClick={logout}>Logout</button>
+      </nav>
+      <main>
+        <Outlet />
+      </main>
     </>
   )
 }
