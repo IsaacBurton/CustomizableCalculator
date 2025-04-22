@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router';
+import { Link, Outlet } from 'react-router';
 
 function App() {
 
@@ -16,7 +16,7 @@ function App() {
   }
 
   return (
-    <>
+    <div>
       <nav className="navbar">
         <h1>Customizable Calculator</h1>
         <button onClick={logout}>Logout</button>
@@ -24,7 +24,7 @@ function App() {
       <main>
         <Outlet />
       </main>
-    </>
+    </div>
   )
 }
 
