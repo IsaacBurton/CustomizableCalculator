@@ -22,6 +22,13 @@ export function useFetch() {
     }
 
     const response = await fetch(uri, options);
+    
+    if (!response.ok) {
+      if (response.status === 403) {
+        console.error("403 Forbidden: You do not have permission to access this page.");
+        return response;
+      }
+    }
     // generically handle errors
     // handle parsing
     return response;

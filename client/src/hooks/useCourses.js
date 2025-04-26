@@ -4,6 +4,7 @@ import { useFetch } from "./useFetch";
 export function useCourses() {
   const [courses, setCourses] = useState([]);
   const makeRequest = useFetch();
+  
   async function fetchCourses() {
     const response = await makeRequest("/courses/");
     if (response.ok) {

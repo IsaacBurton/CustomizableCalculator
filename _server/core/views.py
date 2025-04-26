@@ -36,6 +36,36 @@ def courses(req):
         )
         return JsonResponse({"course": model_to_dict(course)})
 
-
     courses = req.user.instructor.course_set.all()
     return JsonResponse({"courses": [model_to_dict(course) for course in courses]})
+
+@login_required
+def course(req, course_id):
+    try:
+        course = req.user.instructor.course_set.get(id=course_id)
+    except Course.DoesNotExist:
+        return JsonResponse({"error": "You do not have access to this course."}, status=403)
+
+    return JsonResponse({"course": model_to_dict(course)})
+
+@login_required
+def delete_course(req):
+    body = json.loads(req.body)
+    course_id = body.get("id")
+
+    if not course_id:
+        return JsonResponse({"error": "Missing course ID"}, status=400)
+
+    try:
+        # Fetch the Instructor instance for the logged-in user
+        instructor = req.user.instructor
+
+        # Query the course by id and ensure the instructor is the logged-in user's instructor
+        course = Course.objects.get(id=course_id, instructor=instructor)
+        
+        # Delete the course
+        course.delete()
+        return JsonResponse({"message": "Course deleted successfully."})
+    
+    except Course.DoesNotExist:
+        return JsonResponse({"error": "Course not found or you are not authorized to delete it."}, status=404)
