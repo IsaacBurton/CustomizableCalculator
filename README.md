@@ -24,15 +24,10 @@ This page acts as the 'Edit Calculator Page' for that specific Course. When an I
 
    ## TODO (Use Professor Ditton's Todo app as a reference on how to do some of this)
       - Don't forget to include error handling for all endpoints (maybe include loading and error components), and update 'urls.py'
-         * An Instructor shouldn't be able to URL inject into another Instructor's Course pages
          * If fetch or any error happens, reference Ditton's 'Todo.jsx' error handling
       - Create a useFunctions hook that grabs all the allowed functions for a Calculator
       - Create a Course component that will act as the Course card when displayed on the 'Courses Page'
          * Under the header, list the currently allowed functions for that Course
-      - Create a Courses page component that will grab all the Courses from the database and display each Course card for that Instructor
-         * Maybe try and sort the Courses by number or name for readability
-      - Create an AddCourse component that is just the page for adding a Course
-         * Handle an Instructor trying to create the same Course
       - Create a EditCourse page component that acts as the page for a specific Course where the Instructor can edit the calculator
          * Should have a on/off State object that can be used for each function (does each function need it's own state?)
          * Should display the corresponding Calculator Component that dynamically updates with the Instructor edits, will need to use UseFetch with an endpoint

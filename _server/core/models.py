@@ -29,22 +29,5 @@ class Calculator(models.Model):
     course = models.OneToOneField(Course, on_delete=models.CASCADE)
     allowed_functions = models.JSONField(default=dict)
 
-    # allow_addition = models.BooleanField(default=True)
-    # allow_subtraction = models.BooleanField(default=True)
-    # allow_multiplication = models.BooleanField(default=True)
-    # allow_division = models.BooleanField(default=True)
-    # allow_exponentiation = models.BooleanField(default=True)
-    # allow_sqrt = models.BooleanField(default=True)
-    # allow_cbrt = models.BooleanField(default=True)
-    # allow_log10 = models.BooleanField(default=True)
-    # allow_ln = models.BooleanField(default=True)
-    # allow_sin = models.BooleanField(default=True)
-    # allow_cos = models.BooleanField(default=True)
-    # allow_tan = models.BooleanField(default=True)
-    # allow_arcsin = models.BooleanField(default=True)
-    # allow_arccos = models.BooleanField(default=True)
-    # allow_arctan = models.BooleanField(default=True)
-    # allow_factorial = models.BooleanField(default=True)
-
     def __str__(self):
         return f"Calculator for {self.course.name}"

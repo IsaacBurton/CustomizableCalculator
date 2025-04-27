@@ -3,7 +3,7 @@ from django.conf  import settings
 import json
 import os
 from django.contrib.auth.decorators import login_required
-from .models import Course
+from .models import Course, Calculator
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
 
@@ -34,6 +34,29 @@ def courses(req):
             code=body["code"],
             instructor=req.user.instructor,
         )
+
+        Calculator.objects.create(
+            course=course,
+            allowed_functions={
+                "addition": True,
+                "subtraction": True,
+                "multiplication": True,
+                "division": True,
+                "exponentiation": True,
+                "sqrt": True,
+                "cbrt": True,
+                "log10": True,
+                "ln": True,
+                "sin": True,
+                "cos": True,
+                "tan": True,
+                "arcsin": True,
+                "arccos": True,
+                "arctan": True,
+                "factorial": True
+            }
+        )
+        
         return JsonResponse({"course": model_to_dict(course)})
 
     courses = req.user.instructor.course_set.all()

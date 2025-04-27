@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router";
 import { DeletePopup } from "../components/DeletePopup";
+import { Calculator } from "../components/Calculator";
 import { useCourse } from "../hooks/useCourse";
 
 export function EditCourse() {
@@ -30,6 +31,7 @@ export function EditCourse() {
         <h2>Welcome, Instructor!</h2>
         <p>This is your Edit Course page.</p>
         <h3>{course.code}- {course.name}</h3>
+        <Calculator />
       </div>
     );
   }
