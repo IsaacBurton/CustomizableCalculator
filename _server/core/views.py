@@ -92,3 +92,17 @@ def delete_course(req):
     
     except Course.DoesNotExist:
         return JsonResponse({"error": "Course not found or you are not authorized to delete it."}, status=404)
+    
+@login_required
+def functions(req, course_id):
+    if req.method == "POST":
+        body = json.loads(req.body)
+        course = Course.objects.get(id=course_id)
+        calculator = Calculator.objects.get(course=course)
+        calculator.allowed_functions = body["allowed_functions"]
+        calculator.save()
+        return JsonResponse({"allowed_functions": calculator.allowed_functions})
+
+    course = Course.objects.get(id=course_id)
+    calculator = Calculator.objects.get(course=course)
+    return JsonResponse({"allowed_functions": calculator.allowed_functions})

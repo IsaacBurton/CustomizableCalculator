@@ -25,13 +25,8 @@ This page acts as the 'Edit Calculator Page' for that specific Course. When an I
    ## TODO (Use Professor Ditton's Todo app as a reference on how to do some of this)
       - Don't forget to include error handling for all endpoints (maybe include loading and error components), and update 'urls.py'
          * If fetch or any error happens, reference Ditton's 'Todo.jsx' error handling
-      - Create a useFunctions hook that grabs all the allowed functions for a Calculator
-      - Create a Course component that will act as the Course card when displayed on the 'Courses Page'
-         * Under the header, list the currently allowed functions for that Course
       - Create a EditCourse page component that acts as the page for a specific Course where the Instructor can edit the calculator
-         * Should have a on/off State object that can be used for each function (does each function need it's own state?)
          * Should display the corresponding Calculator Component that dynamically updates with the Instructor edits, will need to use UseFetch with an endpoint
-         * A button to delete the Course will be available to the Instructor, which will redirect back to the 'Courses Page' (include pop-up with 'Are You Sure?')
          * Create a Generate Link button that is disabled until the Instructor enables at least one function
       - Style these pages (App.jsx should act as the navbar with the site-wide page header and logout button)
          * Maybe highlight functions that are currently enabled
