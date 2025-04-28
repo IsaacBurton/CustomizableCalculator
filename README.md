@@ -30,3 +30,12 @@ This page acts as the 'Edit Calculator Page' for that specific Course. When an I
          * Create a Generate Link button that is disabled until the Instructor enables at least one function
       - Style these pages (App.jsx should act as the navbar with the site-wide page header and logout button)
          * Maybe highlight functions that are currently enabled
+
+# Calculator Component
+
+   ## TODO
+      - Create an evaluate function that can be called by the user clicking the 'Enter' button or clicking 'Enter' on their keyboard
+         * Find a way to see if you can filter what the user can type, that way they aren't limited to clicking the buttons
+      - Pass in the allowed functions and use that to map to the FunctionButton component (need to create this as well)
+         * Might need to rename Function.jsx to something more specific like FunctionCheckbox
+      - Style the Calculator to make it user-friendly (look at other online calculators)
