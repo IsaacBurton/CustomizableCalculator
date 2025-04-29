@@ -10,11 +10,11 @@
   {% csrf_token %}
   <div>
     <label>
-      Email
-      {% if email != None %}
-      <input type="email" name="email" value="{{ email }}">
+      Student ID
+      {% if student_id != None %}
+      <input type="text" name="student_id" value="{{ student_id }}">
       {% else %}
-      <input type="email" name="email">
+      <input type="text" name="student_id">
       {% endif %}
     </label>
   </div>
@@ -26,5 +26,5 @@
   </div>
   <button>Sign In</button>
 </form>
-<a href="/registration/instructor_sign_up/">Create New Account</a>
+<a href="/registration/student_sign_up/">Create New Account</a>
 {% endblock %}

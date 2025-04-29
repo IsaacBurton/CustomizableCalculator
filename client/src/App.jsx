@@ -21,7 +21,7 @@ function App() {
   
   async function logout() {
     const res = await fetch("/registration/logout/", {
-      credentials: "same-origin", // include cookies!
+      credentials: "same-origin",
     });
 
     if (res.ok) {
@@ -36,7 +36,7 @@ function App() {
   }
 
   useEffect(() => {
-    if (window.location.hash === "#/" || window.location.hash === "#") {
+    if (window.location.hash === "#/" || window.location.hash === "#" || window.location.hash === "") {
       if (userType === "student") {
         navigate("/calculator", { replace: true });
       } else if (userType === "instructor") {

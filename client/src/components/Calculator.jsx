@@ -81,6 +81,11 @@ export function Calculator({ functions }) {
   };
 
   function handleKeyDown(e) {
+      const tag = e.target.tagName.toLowerCase();
+      if (tag === "textarea") {
+        return;
+      }
+      
       e.preventDefault();
     
       if (ALLOWED_KEYS.includes(e.key) || allowedFunctions.includes(e.key)) {

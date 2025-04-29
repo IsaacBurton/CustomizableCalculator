@@ -27,6 +27,9 @@ def index(req):
 
 @login_required
 def courses(req):
+    if not hasattr(req.user, 'instructor'):
+        return
+    
     if req.method == "POST":
         body = json.loads(req.body)
         course = Course.objects.create(
@@ -58,7 +61,6 @@ def courses(req):
         )
         
         return JsonResponse({"course": model_to_dict(course)})
-
     courses = req.user.instructor.course_set.all()
     return JsonResponse({"courses": [model_to_dict(course) for course in courses]})
 

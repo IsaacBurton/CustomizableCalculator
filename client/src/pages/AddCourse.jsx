@@ -34,7 +34,7 @@ export function AddCourse() {
     });      
 
     if (response.ok) {
-      navigate("/");
+      navigate("/courses");
     } else {
       // handle error
     }
@@ -42,7 +42,7 @@ export function AddCourse() {
 
   return (
     <div>
-      <Link to="/">Courses</Link>
+      <Link to="/courses">Courses</Link>
       <h2>Welcome, Instructor!</h2>
       <p>This is your Add Course page.</p>
       <form onSubmit={handleSubmit}>

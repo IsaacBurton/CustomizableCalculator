@@ -11,6 +11,7 @@ export function EditCourse() {
   const location = useLocation()
   const courseId = location.pathname.split("/")[2];
   const course = useCourse(courseId);
+  const link = `${window.location.origin}/registration/student_sign_in/?courseId=${courseId}`;
   let [functions, setFunctions] = useFunctions(courseId);
 
   function handleDelete() {
@@ -27,7 +28,7 @@ export function EditCourse() {
 
   return (
     <div>
-      <Link to="/">Courses</Link>
+      <Link to="/courses">Courses</Link>
       <button onClick={handleDelete}>Delete Course</button>
       {showPopup && (
         <DeletePopup show={showPopup} onClose={handleClosePopup} courseId={courseId} />
@@ -35,6 +36,10 @@ export function EditCourse() {
       <h2>Welcome, Instructor!</h2>
       <p>This is your Edit Course page.</p>
       <h3>{course.code}- {course.name}</h3>
+      <div className="link">
+        <span>Student Calculator Link: </span>
+        <textarea value={ link } readOnly />
+      </div>
       <div>Enable/Disable Functions:
         {Object.entries(functions).map(([name, isEnabled]) => (
           <FunctionCheckbox 
