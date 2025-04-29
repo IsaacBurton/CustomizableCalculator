@@ -80,14 +80,10 @@ def delete_course(req):
         return JsonResponse({"error": "Missing course ID"}, status=400)
 
     try:
-        # Fetch the Instructor instance for the logged-in user
         instructor = req.user.instructor
-
-        # Query the course by id and ensure the instructor is the logged-in user's instructor
         course = Course.objects.get(id=course_id, instructor=instructor)
-        
-        # Delete the course
         course.delete()
+        
         return JsonResponse({"message": "Course deleted successfully."})
     
     except Course.DoesNotExist:
@@ -95,14 +91,24 @@ def delete_course(req):
     
 @login_required
 def functions(req, course_id):
-    if req.method == "POST":
-        body = json.loads(req.body)
+    try:
         course = Course.objects.get(id=course_id)
         calculator = Calculator.objects.get(course=course)
-        calculator.allowed_functions = body["allowed_functions"]
+    except (Course.DoesNotExist, Calculator.DoesNotExist):
+        return JsonResponse({"error": "Course or Calculator not found."}, status=404)
+
+    if req.method == "POST":
+        body = json.loads(req.body)
+
+        function_name = body.get("function_name")
+        is_checked = body.get("is_checked")
+
+        if function_name is None or is_checked is None:
+            return JsonResponse({"error": "Invalid data."}, status=400)
+
+        calculator.allowed_functions[function_name] = is_checked
         calculator.save()
+
         return JsonResponse({"allowed_functions": calculator.allowed_functions})
 
-    course = Course.objects.get(id=course_id)
-    calculator = Calculator.objects.get(course=course)
     return JsonResponse({"allowed_functions": calculator.allowed_functions})

@@ -1,43 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useLocation } from "react-router";
 import { DeletePopup } from "../components/DeletePopup";
 import { Calculator } from "../components/Calculator";
 import { FunctionCheckbox } from "../components/FunctionCheckbox";
-import { useFetch } from "../hooks/useFetch";
 import { useCourse } from "../hooks/useCourse";
 import { useFunctions } from "../hooks/useFunctions";
 
 export function EditCourse() {
   const [showPopup, setShowPopup] = useState(false);
-  const [hasError, setHasError] = useState(false);
   const location = useLocation()
   const courseId = location.pathname.split("/")[2];
   const course = useCourse(courseId);
-  const [functions, setFunctions] = useFunctions(courseId);
-
-  useEffect(() => {
-    if (hasError) {
-      setTimeout(() => {
-        setHasError(false);
-      }, 3000);
-    }
-  }, [hasError])
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    const makeRequest = useFetch();
-
-    const response = await makeRequest(`/functions/${courseId}/`, "POST", {
-      allowed_functions: functions,
-    });
-
-    if (response.ok) {
-      const updatedFunctions = await response.json();
-      setFunctions(updatedFunctions.allowed_functions);
-    } else {
-      setHasError(true);
-    }
-  }
+  let [functions, setFunctions] = useFunctions(courseId);
 
   function handleDelete() {
     setShowPopup(true);
@@ -61,24 +35,23 @@ export function EditCourse() {
       <h2>Welcome, Instructor!</h2>
       <p>This is your Edit Course page.</p>
       <h3>{course.code}- {course.name}</h3>
-      {hasError && <div className="error-popup">There was an error updating the functions. Please refresh and retry.</div>}
-      <form onSubmit={handleSubmit}>
-        <div>Enable/Disable Functions:
-          {Object.entries(functions).map(([name, isEnabled]) => (
-            <FunctionCheckbox 
-              key={name} 
-              name={name} 
-              isEnabled={isEnabled} 
-              onCheckChange={() => 
-                {setFunctions(prev => 
-                  ({...prev,[name]: !prev[name],})
-                )}
-              }
-            />
-          ))}
-        </div>
-        <button>Update Calculator</button>
-      </form>
+      <div>Enable/Disable Functions:
+        {Object.entries(functions).map(([name, isEnabled]) => (
+          <FunctionCheckbox 
+            key={name} 
+            name={name} 
+            isEnabled={isEnabled}
+            courseId={courseId}
+            onToggle={() => {
+              setFunctions((prev) => ({
+                ...prev,
+                [name]: !prev[name],
+              }));
+            }
+          }
+          />
+        ))}
+      </div>
       <Calculator functions={functions} />
     </div>
   );

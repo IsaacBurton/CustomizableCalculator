@@ -31,66 +31,72 @@ export function Calculator({ functions }) {
     .filter((name) => functions[name])
     .map((name) => FUNCTION_MAP[name] || name);
   
+    
+  function insertAtCursor(text) {
+      const input = expressionRef.current;
+      if (!input) return setExpression((prev) => prev + text);
+    
+      const { selectionStart: start, selectionEnd: end } = input;
+      const updated = expression.slice(0, start) + text + expression.slice(end);
+      setExpression(updated);
+    
+      setTimeout(() => {
+          input.focus();
+          input.setSelectionRange(start + text.length, start + text.length);
+      }, 0);
+  };
+
+  function computeExpression() {
+      try {
+          const result = math.evaluate(expression);
+          setExpression(result.toString());
+      } catch (error) {
+          console.error('Error evaluating expression:', error);
+      }
+  };
+
+  function handleControlKeys(key) {
+      const input = expressionRef.current;
+      if (!input) return;
+      const { selectionStart: start } = input;
+
+      if (key === 'Backspace') {
+          if (expression === 'Infinity' || expression === 'NaN') {
+              setExpression('');
+              return;
+          }
+          const updated = expression.slice(0, start - 1);
+          setExpression(updated);
+          setTimeout(() => {
+              input.focus();
+              input.setSelectionRange(start - 1, start - 1);
+          }, 0);
+      } else if (key === 'ArrowLeft' || key === 'ArrowRight') {
+          const offset = key === 'ArrowLeft' ? -1 : 1;
+          setTimeout(() => {
+              input.focus();
+              input.setSelectionRange(start + offset, start + offset);
+          }, 0);
+      }
+  };
+
+  function handleKeyDown(e) {
+      e.preventDefault();
+    
+      if (ALLOWED_KEYS.includes(e.key) || allowedFunctions.includes(e.key)) {
+          insertAtCursor(e.key);
+      } else if (e.key === 'Enter') {
+          computeExpression();
+      } else {
+          handleControlKeys(e.key);
+      }
+  };
+    
   useEffect(() => {
     allowedFunctions = Object.keys(functions)
       .filter((name) => functions[name])
       .map((name) => FUNCTION_MAP[name] || name);
   }, [functions]);
-
-  function insertAtCursor(text) {
-    const input = expressionRef.current;
-    if (!input) return setExpression((prev) => prev + text);
-
-    const { selectionStart: start, selectionEnd: end } = input;
-    const updated = expression.slice(0, start) + text + expression.slice(end);
-    setExpression(updated);
-    
-    setTimeout(() => {
-        input.focus();
-        input.setSelectionRange(start + text.length, start + text.length);
-    }, 0);
-};
-
-  function computeExpression() {
-    try {
-        const result = math.evaluate(expression);
-        setExpression(result.toString());
-    } catch (error) {
-        console.error('Error evaluating expression:', error);
-    }
-  };
-
-  function handleControlKeys(key) {
-    const input = expressionRef.current;
-    if (!input) return;
-    const { selectionStart: start, selectionEnd: end } = input;
-    if (key === 'Backspace') {
-      const updated = expression.slice(0, start - 1);
-      setExpression(updated);
-      setTimeout(() => {
-        input.focus();
-        input.setSelectionRange(start - 1, start - 1);
-      }, 0);
-    } else if (key === 'ArrowLeft' || key === 'ArrowRight') {
-      const offset = key === 'ArrowLeft' ? -1 : 1;
-      setTimeout(() => {
-        input.focus();
-        input.setSelectionRange(start + offset, start + offset);
-      }, 0);
-    }
-  };
-
-  function handleKeyDown(e) {
-    e.preventDefault();
-
-    if (ALLOWED_KEYS.includes(e.key) || allowedFunctions.includes(e.key)) {
-      insertAtCursor(e.key);
-    } else if (e.key === 'Enter') {
-      computeExpression();
-    } else {
-      handleControlKeys(e.key);
-    }
-  };
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
