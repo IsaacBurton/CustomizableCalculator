@@ -26,7 +26,6 @@ This page acts as the 'Edit Calculator Page' for that specific Course. When an I
       - Don't forget to include error handling for all endpoints (maybe include loading and error components), and update 'urls.py'
          * If fetch or any error happens, reference Ditton's 'Todo.jsx' error handling
       - Create a EditCourse page component that acts as the page for a specific Course where the Instructor can edit the calculator
-         * Should display the corresponding Calculator Component that dynamically updates with the Instructor edits, will need to use UseFetch with an endpoint
          * Create a Generate Link button that is disabled until the Instructor enables at least one function
       - Style these pages (App.jsx should act as the navbar with the site-wide page header and logout button)
          * Maybe highlight functions that are currently enabled
@@ -34,8 +33,5 @@ This page acts as the 'Edit Calculator Page' for that specific Course. When an I
 # Calculator Component
 
    ## TODO
-      - Create an evaluate function that can be called by the user clicking the 'Enter' button or clicking 'Enter' on their keyboard
-         * Find a way to see if you can filter what the user can type, that way they aren't limited to clicking the buttons
-      - Pass in the allowed functions and use that to map to the FunctionButton component (need to create this as well)
-         * Might need to rename Function.jsx to something more specific like FunctionCheckbox
+      - Make it so that when the Instructor turns a function on or off, they can use the key on the keyboard (need to dynamically update)
       - Style the Calculator to make it user-friendly (look at other online calculators)

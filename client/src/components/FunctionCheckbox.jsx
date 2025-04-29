@@ -1,6 +1,4 @@
-import { useState } from "react";
-
-export function Function(props) {
+export function FunctionCheckbox(props) {
   const { 
       name: functionName, 
       isEnabled = isEnabled,

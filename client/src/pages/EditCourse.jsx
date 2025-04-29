@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router";
 import { DeletePopup } from "../components/DeletePopup";
 import { Calculator } from "../components/Calculator";
-import { Function } from "../components/Function";
+import { FunctionCheckbox } from "../components/FunctionCheckbox";
 import { useFetch } from "../hooks/useFetch";
 import { useCourse } from "../hooks/useCourse";
 import { useFunctions } from "../hooks/useFunctions";
@@ -65,7 +65,7 @@ export function EditCourse() {
       <form onSubmit={handleSubmit}>
         <div>Enable/Disable Functions:
           {Object.entries(functions).map(([name, isEnabled]) => (
-            <Function 
+            <FunctionCheckbox 
               key={name} 
               name={name} 
               isEnabled={isEnabled} 
@@ -79,7 +79,7 @@ export function EditCourse() {
         </div>
         <button>Update Calculator</button>
       </form>
-      <Calculator />
+      <Calculator functions={functions} />
     </div>
   );
 }
