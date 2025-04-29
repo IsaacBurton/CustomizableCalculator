@@ -1,0 +1,30 @@
+{% extends "registration/base.html"%}
+
+{% block title %}Student Sign In{% endblock %}
+
+{% block content %}
+{% if error %}
+  <p style="color: red;">{{ error }}</p>
+{% endif %}
+<form action="/registration/student_sign_in/" method="post">
+  {% csrf_token %}
+  <div>
+    <label>
+      Email
+      {% if email != None %}
+      <input type="email" name="email" value="{{ email }}">
+      {% else %}
+      <input type="email" name="email">
+      {% endif %}
+    </label>
+  </div>
+  <div>
+    <label>
+      Password
+      <input type="password" name="password">
+    </label>
+  </div>
+  <button>Sign In</button>
+</form>
+<a href="/registration/instructor_sign_up/">Create New Account</a>
+{% endblock %}

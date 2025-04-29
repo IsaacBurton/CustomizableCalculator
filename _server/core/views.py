@@ -83,7 +83,6 @@ def delete_course(req):
         instructor = req.user.instructor
         course = Course.objects.get(id=course_id, instructor=instructor)
         course.delete()
-        
         return JsonResponse({"message": "Course deleted successfully."})
     
     except Course.DoesNotExist:

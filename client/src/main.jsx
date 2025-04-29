@@ -7,6 +7,7 @@ import {createHashRouter, RouterProvider} from 'react-router';
 import { Courses } from './pages/Courses.jsx';
 import { AddCourse } from './pages/AddCourse.jsx';
 import { EditCourse } from './pages/EditCourse.jsx';
+import { StudentCalculator } from './pages/StudentCalculator.jsx'
 
 const router = createHashRouter([
   {
@@ -25,6 +26,10 @@ const router = createHashRouter([
         path: "/courses/:id",
         element: <EditCourse />,
       },
+      {
+        path: "/calculator",
+        element: <StudentCalculator />,
+      }
     ]
   },
 ]);

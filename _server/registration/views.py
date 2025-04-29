@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.urls import reverse
 from core.models import Instructor, Student, Course, Calculator
 import random
@@ -77,7 +77,9 @@ def instructor_sign_in(req):
             if not user.instructor.is_verified:
                 return redirect(reverse("instructor_verification", args=[user.id]))
             login(req, user)
-            return redirect("/")
+            response = HttpResponseRedirect("/")
+            response.set_cookie('user_type', 'instructor')
+            return response
 
         return render(req, "registration/instructor_sign_in.html", {"error": "Invalid email or password.",
                                                                     "email": req.POST.get("email"),
@@ -87,4 +89,8 @@ def instructor_sign_in(req):
 
 def logout_view(request):
     logout(request)
-    return JsonResponse({"success": True })
+
+    response = JsonResponse({"success": True})
+    response.delete_cookie('user_type')
+
+    return response
