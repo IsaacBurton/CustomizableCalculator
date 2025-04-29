@@ -58,14 +58,14 @@ export function Calculator({ functions }) {
   function handleControlKeys(key) {
       const input = expressionRef.current;
       if (!input) return;
-      const { selectionStart: start } = input;
+      const { selectionStart: start, selectionEnd: end } = input;
 
       if (key === 'Backspace') {
           if (expression === 'Infinity' || expression === 'NaN') {
               setExpression('');
               return;
           }
-          const updated = expression.slice(0, start - 1);
+          const updated = expression.slice(0, start - 1) + expression.slice(end);
           setExpression(updated);
           setTimeout(() => {
               input.focus();

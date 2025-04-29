@@ -23,8 +23,6 @@ This page contains a form that will ask for the name of the Course (i.e. Linear 
 This page acts as the 'Edit Calculator Page' for that specific Course. When an Instructor clicks a Course on the 'Courses Page', they are directed to this page. It will list all the possible functions for the calculator as toggleable buttons, which the Instructor can turn on or off. When the Instructor is done customizing the calculator, they can click the 'Generate Link' button which will create a link for Student use. There will also be a 'Delete Course' button, which will create a pop-up asking if the Instructor really wants to delete the Course, to which they can press Yes or No. If yes, they are redirected to the 'Courses Page'.
 
    ## TODO (Use Professor Ditton's Todo app as a reference on how to do some of this)
-      - Create a EditCourse page component that acts as the page for a specific Course where the Instructor can edit the calculator
-         * Create a Generate Link button that is disabled until the Instructor enables at least one function
       - Style these pages (App.jsx should act as the navbar with the site-wide page header and logout button)
          * Maybe highlight functions that are currently enabled
 
@@ -47,8 +45,8 @@ Again, exactly the same as the Instructor. A Student is asked to provide a verif
 Once a Student has logged in or fully signed up, they are redirected to the Calculator page, which is just the Calculator component for the Course attached to the link. Again, the Student shouldn't be able to URI inject into another Calculator because of the cookie created as soon as they clicked the link.
 
    ## TODO
-      - Pretty much just need to copy-paste a lot of the code from the Instructor stuff, but DOUBLE CHECK error handling.
-         * Make sure an Instructor can't login on the Student page (they shouldn't by default since they don't have a Student ID)
-         * Make sure a Student can't login as on the Instructor page (might need a little more code since a Student DOES have an email)
-      - Create the Student Calculator page which is just the Calculator component
-         * IMPORTANT: Will need to change router paths in 'main.jsx', which might also include changing some urls
+      - Style these pages
+
+# Known Issues/Bugs
+   - If a Student knows the URL of another Course before using the link given by their Instrcutor, they are able to use the other Calculator. In a more advanced application, better link    generation would be implemented to avoid this issue.
+   - If the user clicks the 'compute' button on the Calculator then presses the 'delete' button directly after, the expression combines the previous state with the new state. This has something to do with the cursor and where it is after the 'compute' button is pressed. If the user presses 'Enter' or 'Backspace' on their keyboard this issue doesn't appear. This is most likely because the focus is still within the input box, hence the cursor is where it should be.

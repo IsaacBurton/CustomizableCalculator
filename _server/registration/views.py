@@ -89,7 +89,14 @@ def instructor_verification(req, user_id):
 def student_sign_in(req):
     if req.method == "POST":
         user = authenticate(req, username=req.POST.get("student_id").lower(), password=req.POST.get("password"))
+            
         if user is not None and hasattr(user, 'student'):
+            course_id_cookie = req.COOKIES.get('course_id')
+            if not user.student.courses.filter(id=course_id_cookie).exists():
+                return render(req, "registration/student_sign_in.html", {"error": "You are not enrolled in this course.",
+                                                                          "student_id": req.POST.get("student_id"),
+                                                                          })
+            
             if not user.student.is_verified:
                 return redirect(reverse("student_verification", args=[user.id]))
             login(req, user)
@@ -101,11 +108,17 @@ def student_sign_in(req):
                                                                   "student_id": req.POST.get("student_id"),
                                                                   })
     else:
-        course_id = req.GET.get('courseId')
-        response = render(req, "registration/student_sign_in.html", {"course_id": course_id})
-        if course_id:
-            response.set_cookie('course_id', course_id)
-        return response
+        courseCookie = req.COOKIES.get('course_id')
+        if courseCookie is not None:
+            return render(req, "registration/student_sign_in.html", {"error": "You do not have access to this course.",
+                                                                     "course_id": courseCookie
+                                                                     })
+        else:
+            course_id = req.GET.get('courseId')
+            response = render(req, "registration/student_sign_in.html", {"course_id": course_id})
+            if course_id:
+                response.set_cookie('course_id', course_id)
+            return response
     
 def student_sign_up(req):
     if req.method == "POST":

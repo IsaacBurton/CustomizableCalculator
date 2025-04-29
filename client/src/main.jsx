@@ -7,7 +7,10 @@ import {createHashRouter, RouterProvider} from 'react-router';
 import { Courses } from './pages/Courses.jsx';
 import { AddCourse } from './pages/AddCourse.jsx';
 import { EditCourse } from './pages/EditCourse.jsx';
-import { StudentCalculator } from './pages/StudentCalculator.jsx'
+import { StudentCalculator } from './pages/StudentCalculator.jsx';
+import { getCookie } from './hooks/getCookie.js';
+
+const coureId = getCookie('course_id');
 
 const router = createHashRouter([
   {
@@ -28,7 +31,7 @@ const router = createHashRouter([
       },
       {
         path: "/calculator",
-        element: <StudentCalculator />,
+        element: <StudentCalculator courseId={coureId} />,
       }
     ]
   },
