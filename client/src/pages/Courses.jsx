@@ -6,14 +6,15 @@ export function Courses() {
   const courses = useCourses();
 
   return (
-    <div>
-      <Link to="/add-course">Add Course</Link>
+    <div className="container">
       <h2>Welcome, Instructor!</h2>
-      <p>This is your Courses page.</p>
+      <div className="course-links">
+        <Link to="/add-course">Add Course</Link>
+      </div>
       {courses.length === 0 ? (
         <p>No courses found.</p>
       ) : (
-        <div>
+        <div className="course-list">
           {courses.map(course => (
             <Course key={course.id} course={course} />
           ))}

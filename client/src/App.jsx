@@ -48,7 +48,7 @@ function App() {
   return (
     <div>
       <nav className="navbar">
-        <h1>Customizable Calculator</h1>
+        <div className="header">Customizable Calculator</div>
         <button onClick={logout}>Logout</button>
       </nav>
       <main>

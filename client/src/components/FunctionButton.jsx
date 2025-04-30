@@ -5,8 +5,8 @@ export function FunctionButton(props) {
     } = props;
 
     return (
-        <span>
+        <div className="function-button">
             <button onClick={onClick}>{functionName}</button>
-        </span>
+        </div>
     )
 }

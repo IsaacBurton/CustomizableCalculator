@@ -110,9 +110,9 @@ export function Calculator({ functions }) {
 
 
   return (
-    <div>
-      <h2>Calculator</h2>
+    <div className="container">
       <div className="calculator">
+        <h2>Calculator</h2>
         <div className="expression">
           <input
             ref={expressionRef}
@@ -131,32 +131,36 @@ export function Calculator({ functions }) {
 
         <div className="calculator-buttons">
           <div className="always-allowed">
-            <div className="row-1">
+            <div className="row">
                 {ALLOWED_KEYS.slice(0, 3).map((key) => (
                 <FunctionButton key={key} functionName={key} onClick={() => insertAtCursor(key)} />
                 ))}
             </div>
-            <div className="row-2">
+            <div className="row">
                 {ALLOWED_KEYS.slice(3, 6).map((key) => (
                 <FunctionButton key={key} functionName={key} onClick={() => insertAtCursor(key)} />
                 ))}
             </div>
-            <div className="row-3">
+            <div className="row">
                 {ALLOWED_KEYS.slice(6, 9).map((key) => (
                 <FunctionButton key={key} functionName={key} onClick={() => insertAtCursor(key)} />
                 ))}
             </div>
-            <div className="row-4">
-                {ALLOWED_KEYS.slice(9, 13).map((key) => (
+            <div className="row">
+                {ALLOWED_KEYS.slice(9, 10).map((key) => (
                 <FunctionButton key={key} functionName={key} onClick={() => insertAtCursor(key)} />
                 ))}
             </div>
           </div>
-
           <div className="allowed-functions">
-            {allowedFunctions.map((functionName) => (
-              <FunctionButton key={functionName} functionName={functionName} onClick={() => insertAtCursor(functionName)} />
-            ))}
+            <div className="row">
+              {ALLOWED_KEYS.slice(10, 13).map((key) => (
+              <FunctionButton key={key} functionName={key} onClick={() => insertAtCursor(key)} />
+              ))}
+              {allowedFunctions.map((functionName) => (
+                <FunctionButton key={functionName} functionName={functionName} onClick={() => insertAtCursor(functionName)} />
+              ))}
+            </div>
           </div>
         </div>
       </div>

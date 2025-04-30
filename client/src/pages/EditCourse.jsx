@@ -27,35 +27,46 @@ export function EditCourse() {
   }
 
   return (
-    <div>
-      <Link to="/courses">Courses</Link>
-      <button onClick={handleDelete}>Delete Course</button>
-      {showPopup && (
-        <DeletePopup show={showPopup} onClose={handleClosePopup} courseId={courseId} />
-      )}
-      <h2>Welcome, Instructor!</h2>
-      <p>This is your Edit Course page.</p>
-      <h3>{course.code}- {course.name}</h3>
-      <div className="link">
+    <div className="container">
+      <h2>Edit Your Course Calculator</h2>
+      <div className="course-links edit-nav">
+        <div className="course-name">
+          <h3>{course.code}- {course.name}</h3>
+        </div>
+        <div className="courses-link">
+          <Link to="/courses" className="link">Courses</Link>
+        </div>
+        <div className="delete-course">
+          <button onClick={handleDelete}>Delete Course</button>
+        </div>
+        {showPopup && (
+          <DeletePopup show={showPopup} onClose={handleClosePopup} courseId={courseId} />
+        )}
+      </div>
+      <div className="student-link">
         <span>Student Calculator Link: </span>
         <textarea value={ link } readOnly />
       </div>
-      <div>Enable/Disable Functions:
-        {Object.entries(functions).map(([name, isEnabled]) => (
-          <FunctionCheckbox 
-            key={name} 
-            name={name} 
-            isEnabled={isEnabled}
-            courseId={courseId}
-            onToggle={() => {
-              setFunctions((prev) => ({
-                ...prev,
-                [name]: !prev[name],
-              }));
-            }
-          }
-          />
-        ))}
+      <div className="function-checkboxes">
+        <div>
+          Enable/Disable Functions:
+        </div>
+        <div className="functions">
+          {Object.entries(functions).map(([name, isEnabled]) => (
+            <FunctionCheckbox 
+              key={name} 
+              name={name} 
+              isEnabled={isEnabled}
+              courseId={courseId}
+              onToggle={() => {
+                setFunctions((prev) => ({
+                  ...prev,
+                  [name]: !prev[name],
+                }));
+              }}
+            />
+          ))}   
+        </div>
       </div>
       <Calculator functions={functions} />
     </div>

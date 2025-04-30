@@ -36,7 +36,7 @@ export function FunctionCheckbox(props) {
   }
 
   return (
-    <div>
+    <div className="function-checkbox">
         <input type='checkbox' checked={isChecked} onChange={handleCheckboxChange}/>{functionName}
     </div>
   )

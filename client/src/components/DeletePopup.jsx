@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 
 export function DeletePopup(props) {
     const {
-        showPopup,
+        show,
         onClose,
         courseId
     } = props;
@@ -23,9 +23,9 @@ export function DeletePopup(props) {
     }
     
     return (
-      <div className={`popup ${showPopup ? "open" : ""}`}>
+      <div className={`popup ${show ? "open" : ""}`}>
         <div className="popup-content">
-            <h2>Are you sure you want to delete this course?</h2>
+            <div className="popup-text">Are you sure you want to delete this course?</div>
             <button onClick={onClose}>Cancel</button>
             <button onClick={handleDelete}>Delete</button>
         </div>

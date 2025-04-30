@@ -41,14 +41,15 @@ export function AddCourse() {
   }
 
   return (
-    <div>
-      <Link to="/courses">Courses</Link>
-      <h2>Welcome, Instructor!</h2>
-      <p>This is your Add Course page.</p>
+    <div className="container">
+      <h2>Create a New Course</h2>
+      <div className="course-links">
+        <Link to="/courses">Home Page</Link>
+      </div>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="input-field">
           <label>
-            Course Code:
+            <div>Course Code:</div>
             <input
               type="text"
               id="courseCode"
@@ -59,9 +60,9 @@ export function AddCourse() {
           </label>
           {courseCodeError && <p style={{ color: "red" }}>{courseCodeError}</p>}
         </div>
-        <div>
+        <div className="input-field">
           <label>
-            Course Name:
+          <div>Course Name:</div>
             <input
               type="text"
               id="courseName"
@@ -72,7 +73,9 @@ export function AddCourse() {
           </label>
           {courseNameError && <p style={{ color: "red" }}>{courseNameError}</p>}
         </div>
-        <button>Add Course</button>
+        <div className="add-course">
+          <button>Add Course</button>
+        </div>
       </form>
     </div>
   );
