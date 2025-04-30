@@ -129,6 +129,7 @@ def student_sign_up(req):
         email = req.POST.get("email")
         first_name = req.POST.get("first_name")
         last_name = req.POST.get("last_name")
+        courses = Course.objects.all()
 
         if User.objects.filter(email=email).exists():
             return render(req, "registration/student_sign_up.html", {"error": "Email already exists.",
@@ -136,7 +137,8 @@ def student_sign_up(req):
                                                                       "last_name": last_name,
                                                                       "email": email,
                                                                       "student_id": username,
-                                                                      "email_in_use": True
+                                                                      "email_in_use": True,
+                                                                      "courses": courses
                                                                       })
         
         if User.objects.filter(username=username).exists():
@@ -145,7 +147,8 @@ def student_sign_up(req):
                                                                       "last_name": last_name,
                                                                       "email": email,
                                                                       "student_id": username,
-                                                                      "student_id_in_use": True
+                                                                      "student_id_in_use": True,
+                                                                      "courses": courses
                                                                       })
         
         if len(password) < 8:
@@ -154,7 +157,8 @@ def student_sign_up(req):
                                                                       "last_name": last_name,
                                                                       "email": email,
                                                                       "student_id": username,
-                                                                      "password_too_short": True
+                                                                      "password_too_short": True,
+                                                                      "courses": courses
                                                                       })
         
         user = User.objects.create_user(
