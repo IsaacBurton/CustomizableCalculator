@@ -16,7 +16,7 @@ export function DeletePopup(props) {
         });
         
         if (response.ok) {
-            navigate("/");
+            navigate("/courses");
         } else {
             // handle error
         }
