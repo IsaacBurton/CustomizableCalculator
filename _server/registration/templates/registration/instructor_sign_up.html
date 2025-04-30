@@ -3,43 +3,48 @@
 {% block title %}Instructor Sign Up{% endblock %}
 
 {% block content %}
-<a href="/registration/instructor_sign_in">Sign In</a>
-<form action="/registration/instructor_sign_up/" method="post">
-  {% csrf_token %}
-  <div>
-    <label>
-      First Name
-      <input type="text" name="first_name" value="{{ first_name }}" required>
-    </label>
-  </div>
-  <div>
-    <label>
-      Last Name
-      <input type="text" name="last_name" value="{{ last_name }}" required>
-    </label>
-  </div>
-  <div>
-    <label>
-      Email
-      {% if email != None %}
-      <input type="email" name="email" value="{{ email }}" required>
-      {% else %}
-      <input type="email" name="email" required>
+<nav>
+  <a href="/registration/instructor_sign_in">Sign In</a>
+</nav>
+<div class="container">
+  <h1>Instructor Sign Up</h1>
+  <form action="/registration/instructor_sign_up/" method="post">
+    {% csrf_token %}
+    <div class="input-field">
+      <label>
+        <div>First Name</div>
+        <input type="text" name="first_name" value="{{ first_name }}" required>
+      </label>
+    </div>
+    <div class="input-field">
+      <label>
+        <div>Last Name</div>
+        <input type="text" name="last_name" value="{{ last_name }}" required>
+      </label>
+    </div>
+    <div class="input-field">
+      <label>
+        <div>Email</div>
+        {% if email != None %}
+        <input type="email" name="email" value="{{ email }}" required>
+        {% else %}
+        <input type="email" name="email" required>
+        {% endif %}
+      </label>
+      {% if email_in_use %}
+      <span style="color: red;">This email is already in use.</span>
       {% endif %}
-    </label>
-    {% if email_in_use %}
-    <span style="color: red;">This email is already in use.</span>
-    {% endif %}
-  </div>
-  <div>
-    <label>
-      Password
-      <input type="password" name="password">
-    </label>
-    {% if password_too_short %}
-    <span style="color: red;">Password must be at least 8 characters long.</span>
-    {% endif %}
-  </div>
-  <button>Create Account</button>
-</form>
+    </div>
+    <div class="input-field">
+      <label>
+        <div>Password</div>
+        <input type="password" name="password">
+      </label>
+      {% if password_too_short %}
+      <span style="color: red;">Password must be at least 8 characters long.</span>
+      {% endif %}
+    </div>
+    <button>Create Account</button>
+  </form>
+</div>
 {% endblock %}

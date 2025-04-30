@@ -10,9 +10,6 @@ This page will ask for the Instructor's first and last name, email, and password
 # Instructor Verification Page
 The whole purpose of this page is to simulate the scenario where someone other than an Instructor tries to create an account. The Instructor would wait to receive a code from the company that owns the application, who checked with the University or School to verify the Instructor's identity. Once the Instructor puts in the code, they will be directed to their 'Courses Page'. If they left the page before verifying, the sign-in page will redirect them back to this page until they verify themselves.
 
-   ## TODO
-      - Style these pages
-
 # Courses Page
 This is the page an Instructor is directed to after successful login. It will list all of their courses, which each act as a link to their own 'Course Page'. If an Instructor needs to Add a Course, there is a button that will redirect them to the 'Course Creation' page.
 

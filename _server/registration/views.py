@@ -76,7 +76,9 @@ def instructor_verification(req, user_id):
             instructor.is_verified = True
             instructor.save()
             login(req, instructor.user)
-            return redirect("/")
+            response = redirect("/")
+            response.set_cookie('user_type', 'instructor')
+            return response
         else:
             return render(req, "registration/instructor_verification.html", {"error": "Invalid verification code.",
                                                                              "verification_code": instructor_code,
@@ -190,7 +192,9 @@ def student_verification(req, user_id):
             student.is_verified = True
             student.save()
             login(req, student.user)
-            return redirect("/")
+            response = redirect("/")
+            response.set_cookie('user_type', 'student')
+            return response
         else:
             return render(req, "registration/student_verification.html", {"error": "Invalid verification code.",
                                                                           "verification_code": student_code,

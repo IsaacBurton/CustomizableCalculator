@@ -3,28 +3,33 @@
 {% block title %}Instructor Sign In{% endblock %}
 
 {% block content %}
-{% if error %}
-  <p style="color: red;">{{ error }}</p>
-{% endif %}
-<form action="/registration/instructor_sign_in/" method="post">
-  {% csrf_token %}
-  <div>
-    <label>
-      Email
-      {% if email != None %}
-      <input type="email" name="email" value="{{ email }}">
-      {% else %}
-      <input type="email" name="email">
-      {% endif %}
-    </label>
+<div class="container">
+  <h1>Instructor Sign In</h1>
+  {% if error %}
+    <p style="color: red;">{{ error }}</p>
+  {% endif %}
+  <form action="/registration/instructor_sign_in/" method="post">
+    {% csrf_token %}
+    <div class="input-field">
+      <label>
+        <div>Email</div>
+        {% if email != None %}
+        <input type="email" name="email" value="{{ email }}">
+        {% else %}
+        <input type="email" name="email">
+        {% endif %}
+      </label>
+    </div>
+    <div class="input-field">
+      <label>
+        <div>Password</div>
+        <input type="password" name="password">
+      </label>
+    </div>
+    <button id="sign-in">Sign In</button>
+  </form>
+  <div class="create-account">
+    <a href="/registration/instructor_sign_up/">Create New Account</a>
   </div>
-  <div>
-    <label>
-      Password
-      <input type="password" name="password">
-    </label>
-  </div>
-  <button>Sign In</button>
-</form>
-<a href="/registration/instructor_sign_up/">Create New Account</a>
+</div>
 {% endblock %}

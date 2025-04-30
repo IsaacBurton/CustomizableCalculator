@@ -3,67 +3,72 @@
 {% block title %}Student Sign Up{% endblock %}
 
 {% block content %}
-<a href="/registration/student_sign_in">Sign In</a>
-<form action="/registration/student_sign_up/" method="post">
-  {% csrf_token %}
-  <div>
-    <label>
-      First Name
-      <input type="text" name="first_name" value="{{ first_name }}" required>
-    </label>
-  </div>
-  <div>
-    <label>
-      Last Name
-      <input type="text" name="last_name" value="{{ last_name }}" required>
-    </label>
-  </div>
-  <div>
-    <label>
-      Email
-      {% if email != None %}
-      <input type="email" name="email" value="{{ email }}" required>
-      {% else %}
-      <input type="email" name="email" required>
-      {% endif %}
-    </label>
-    {% if email_in_use %}
-    <span style="color: red;">This email is already in use.</span>
-    {% endif %}
-  </div>
-  <div>
-    <label>
-      Student ID
-      {% if student_id != None %}
-      <input type="text" name="student_id" value="{{ student_id }}" required>
-      {% else %}
-      <input type="text" name="student_id" required>
-      {% endif %}
-    </label>
-    {% if student_id_in_use %}
-    <span style="color: red;">This student ID is already in use.</span>
-    {% endif %}
-  </div>
-  <div>
-    <label>
-      Password
-      <input type="password" name="password">
-    </label>
-    {% if password_too_short %}
-    <span style="color: red;">Password must be at least 8 characters long.</span>
-    {% endif %}
-  </div>
-  <div>
-    <label>Available Courses:</label>
-    <div>
-        {% for course in courses %}
-            <label>
-                <input type="checkbox" name="course_ids" value="{{ course.id }}">
-                {{ course.instructor.user.first_name }} {{ course.instructor.user.last_name }}- {{ course.name }}
-            </label>
-        {% endfor %}
+<nav>
+  <a href="/registration/student_sign_in">Sign In</a>
+</nav>
+<div class="container">
+  <h1>Student Sign Up</h1>
+  <form action="/registration/student_sign_up/" method="post">
+    {% csrf_token %}
+    <div class="input-field">
+      <label>
+        <div>First Name</div>
+        <input type="text" name="first_name" value="{{ first_name }}" required>
+      </label>
     </div>
+    <div class="input-field">
+      <label>
+        <div>Last Name</div>
+        <input type="text" name="last_name" value="{{ last_name }}" required>
+      </label>
+    </div>
+    <div class="input-field">
+      <label>
+        <div>Email</div>
+        {% if email != None %}
+        <input type="email" name="email" value="{{ email }}" required>
+        {% else %}
+        <input type="email" name="email" required>
+        {% endif %}
+      </label>
+      {% if email_in_use %}
+      <span style="color: red;">This email is already in use.</span>
+      {% endif %}
+    </div>
+    <div class="input-field">
+      <label>
+        <div>Student ID</div>
+        {% if student_id != None %}
+        <input type="text" name="student_id" value="{{ student_id }}" required>
+        {% else %}
+        <input type="text" name="student_id" required>
+        {% endif %}
+      </label>
+      {% if student_id_in_use %}
+      <span style="color: red;">This student ID is already in use.</span>
+      {% endif %}
+    </div>
+    <div class="input-field">
+      <label>
+        <div>Password</div>
+        <input type="password" name="password">
+      </label>
+      {% if password_too_short %}
+      <span style="color: red;">Password must be at least 8 characters long.</span>
+      {% endif %}
+    </div>
+    <div class="input-field">
+      <label>Available Courses:</label>
+      <div class="input-field">
+          {% for course in courses %}
+              <label>
+                  <input type="checkbox" name="course_ids" value="{{ course.id }}">
+                  {{ course.instructor.user.first_name }} {{ course.instructor.user.last_name }}- {{ course.name }}
+              </label>
+          {% endfor %}
+      </div>
+    </div>
+    <button>Create Account</button>
+  </form>
 </div>
-  <button>Create Account</button>
-</form>
 {% endblock %}

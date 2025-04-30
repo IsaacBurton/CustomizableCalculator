@@ -3,28 +3,33 @@
 {% block title %}Student Sign In{% endblock %}
 
 {% block content %}
-{% if error %}
-  <p style="color: red;">{{ error }}</p>
-{% endif %}
-<form action="/registration/student_sign_in/" method="post">
-  {% csrf_token %}
-  <div>
-    <label>
-      Student ID
-      {% if student_id != None %}
-      <input type="text" name="student_id" value="{{ student_id }}">
-      {% else %}
-      <input type="text" name="student_id">
-      {% endif %}
-    </label>
+<div class="container">
+  <h1>Student Sign In</h1>
+  {% if error %}
+    <p style="color: red;">{{ error }}</p>
+  {% endif %}
+  <form action="/registration/student_sign_in/" method="post">
+    {% csrf_token %}
+    <div class="input-field">
+      <label>
+        <div>Student ID</div>
+        {% if student_id != None %}
+        <input type="text" name="student_id" value="{{ student_id }}">
+        {% else %}
+        <input type="text" name="student_id">
+        {% endif %}
+      </label>
+    </div>
+    <div class="input-field">
+      <label>
+        <div>Password</div>
+        <input type="password" name="password">
+      </label>
+    </div>
+    <button>Sign In</button>
+  </form>
+  <div class="create-account">
+    <a href="/registration/student_sign_up/">Create New Account</a>
   </div>
-  <div>
-    <label>
-      Password
-      <input type="password" name="password">
-    </label>
-  </div>
-  <button>Sign In</button>
-</form>
-<a href="/registration/student_sign_up/">Create New Account</a>
+</div>
 {% endblock %}
